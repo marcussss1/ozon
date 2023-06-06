@@ -29,10 +29,12 @@ make cover_out
 make cover_html
 ```
 
-Для запуска с redis'ом
+Для генерации protobuf объектов и функций
 ```shell
-make run_redis
+make generate_proto
+make generate_proto_rpc
 ```
+
 
 # API
 
