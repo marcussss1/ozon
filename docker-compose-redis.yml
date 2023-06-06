@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      dockerfile: ./Dockerfile-api
+    image: api
+    container_name: api
+    hostname: api
+    restart: always
+    depends_on:
+      - links
+    ports:
+      - "8081:8081"
+    networks:
+      - backend-network
+
+  links:
+    build:
+      dockerfile: ./Dockerfile-links
+      args:
+        STORAGE: "redis"
+    image: links
+    container_name: links
+    hostname: links
+    restart: always
+    depends_on:
+      - redis
+    ports:
+      - "8082:8082"
+    networks:
+      - backend-network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    restart: always
+    networks:
+      - backend-network
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+networks:
+  backend-network:
+    name: "backend-network"
+    driver: bridge
+
+volumes:
+  redis_data: { }

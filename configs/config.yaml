@@ -1,0 +1,26 @@
+Server:
+  port: ":8081"
+
+Postgres:
+  db: "postgres"
+  connectionToDB: "user=brigade password=123 dbname=brigade host=postgres port=5432 sslmode=disable"
+
+Cors:
+  allowMethods:
+    - "POST"
+    - "GET"
+    - "OPTIONS"
+  allowOrigins:
+    - "*"
+  allowHeaders:
+    - "Content-Type"
+    - "Content-Length"
+    - "Origin"
+    - "Authorization"
+  allowCredentials: false
+
+Redis:
+  addr: "redis:6379"
+
+LinksService:
+  addr: "links:8082"

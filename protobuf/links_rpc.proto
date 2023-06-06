@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option go_package = ".;generated";
+
+package protobuf;
+
+import "protobuf/link.proto";
+
+service Links {
+  rpc GetOriginalLink(Link) returns (Link) {}
+  rpc SaveAbbreviatedLink(Link) returns(Link) {}
+}

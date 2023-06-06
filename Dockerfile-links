@@ -1,0 +1,17 @@
+FROM golang:1.19-alpine
+
+ARG STORAGE
+
+WORKDIR /build
+
+COPY go.mod .
+
+RUN go mod download
+
+COPY . .
+
+RUN go build -o /links cmd/links/main.go
+
+ENV ENV_STORAGE=$STORAGE
+
+ENTRYPOINT /links $ENV_STORAGE

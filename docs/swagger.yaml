@@ -1,0 +1,100 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/DANILAKALASH60/TP-DB/1.0.0
+info:
+  version: "1.0.0"
+  title: home-iot-api
+  description: The API for the EatBacon IOT project
+paths:
+  /api/v1/get/{url}:
+    get:
+      parameters:
+        - name: url
+          in: path
+          required: true
+          schema:
+            type: string
+      description: Принимает сокращённый URL и возвращает оригинальный.
+      tags:
+        - links
+      responses:
+        '200':
+          description: Успешное возвращение оригинального URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+        "400":
+          description: На вход подали невалидный URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrUrlIsTooLong'
+        '404':
+          description: Сокращённый URL не найден.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrUrlNotFound'
+        '500':
+          description: Внутренняя ошибка сервера.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrInternal'
+  /api/v1/save:
+    post:
+      description: Сохраняет оригинальный URL в базе и возвращает сокращённый.
+      tags:
+        - links
+      responses:
+        '201':
+          description: Оригинальный URL успешно сохранился, возвращается сокращённый.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+        "400":
+          description: На вход подали невалидный URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrUrlIsTooLong'
+        '500':
+          description: Внутренняя ошибка сервера.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrInternal'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Url'
+components:
+  schemas:
+    Url:
+      type: object
+      properties:
+        url:
+          type: string
+    ErrUrlIsTooLong:
+      type: object
+      properties:
+        error:
+          example: 'Слишком длинный URL(больше 512 символов)'
+          type: string
+    ErrUrlNotFound:
+      type: object
+      properties:
+        error:
+          example: 'Сокращённый URL не найден'
+          type: string
+    ErrInternal:
+      type: object
+      properties:
+        error:
+          example: 'Внутренняя ошибка сервера'
+          type: string
