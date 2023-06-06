@@ -10,6 +10,11 @@ make run_postgres
 make run_redis
 ```
 
+# API
+
+`docs/swagger.yaml`
+`docs/swagger.json`
+
 # Порты
 
 |key|default|
