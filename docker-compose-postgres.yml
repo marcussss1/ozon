@@ -15,6 +15,11 @@ services:
       - "8081:8081"
     networks:
       - backend-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/health" ]
+      interval: 60m
+      timeout: 10s
+      retries: 3
 
   links:
     build:
@@ -32,6 +37,11 @@ services:
       - "8082:8082"
     networks:
       - backend-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8082/health" ]
+      interval: 60m
+      timeout: 10s
+      retries: 3
 
   postgres:
     image: postgres:latest
@@ -47,6 +57,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - backend-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5432/health" ]
+      interval: 60m
+      timeout: 10s
+      retries: 3
 
 networks:
   backend-network:
