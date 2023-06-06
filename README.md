@@ -38,14 +38,7 @@ make generate_proto_rpc
 
 # API
 
-`docs/swagger.yaml` `docs/swagger.json`
+`docs/swagger.yaml
+docs/swagger.json`
 
-# Порты
-
-|key|default|
-|---|---|
-|Api Port| 8081|
-|Links Port| 8082|
-|Postgres Port| 5432|
-|Redis Port| 6379|
 
