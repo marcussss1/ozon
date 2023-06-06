@@ -87,10 +87,10 @@ type testSaveCase struct {
 func Test_SaveAbbreviatedLink(t *testing.T) {
 	tests := []testSaveCase{
 		{
-			abbreviatedUrl: "OQ4g14JATq",
+			abbreviatedUrl: "877ca9b8dd",
 			originalUrl:    "vk.com",
 			expectedLink: model.Link{
-				Url: "OQ4g14JATq",
+				Url: "877ca9b8dd",
 			},
 			expectedExistError: pkgErrors.ErrAbbreviatedUrlNotFound,
 			expectedSaveError:  nil,
@@ -111,10 +111,10 @@ func Test_SaveAbbreviatedLink(t *testing.T) {
 			name:               "Слишком длинная ссылка(больше 512 символов)",
 		},
 		{
-			abbreviatedUrl: "OQ4g14JATq",
+			abbreviatedUrl: "877ca9b8dd",
 			originalUrl:    "vk.com",
 			expectedLink: model.Link{
-				Url: "OQ4g14JATq",
+				Url: "877ca9b8dd",
 			},
 			expectedExistError: nil,
 			expectedSaveError:  nil,
@@ -124,7 +124,7 @@ func Test_SaveAbbreviatedLink(t *testing.T) {
 			name:               "Такая ссылка уже существует",
 		},
 		{
-			abbreviatedUrl:     "OQ4g14JATq",
+			abbreviatedUrl:     "877ca9b8dd",
 			originalUrl:        "vk.com",
 			expectedLink:       model.Link{},
 			expectedExistError: pkgErrors.ErrAbbreviatedUrlNotFound,
@@ -135,7 +135,7 @@ func Test_SaveAbbreviatedLink(t *testing.T) {
 			name:               "Внутренняя ошибка сервера",
 		},
 		{
-			abbreviatedUrl:     "OQ4g14JATq",
+			abbreviatedUrl:     "877ca9b8dd",
 			originalUrl:        "vk.com",
 			expectedLink:       model.Link{},
 			expectedExistError: pkgErrors.ErrInternal,
