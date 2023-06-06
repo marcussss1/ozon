@@ -38,7 +38,7 @@ make generate_proto_rpc
 
 # API
 
-`docs/swagger.yaml
+`docs/swagger.yaml\n
 docs/swagger.json`
 
 
