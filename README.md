@@ -5,18 +5,18 @@
 make run_postgres
 ```
 
-Для запуска контейнеров с redis'ом
+Для запуска контейнеров с in-memory
 ```shell
-make run_redis
+make run_in_memory
 ```
 Для остановки контейнеров с postgres'ом
 ```shell
 make stop_postgres
 ```
 
-Для остановки контейнеров с redis'ом
+Для остановки контейнеров с in-memory
 ```shell
-make stop_redis
+make stop_in_memory
 ```
 
 Для запуска тестового покрытия

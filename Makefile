@@ -2,17 +2,17 @@
 run_postgres: |
 	docker compose -f docker-compose-postgres.yml up -d
 
-.PHONY: run_redis
-run_redis: |
-	docker compose -f docker-compose-redis.yml up -d
+.PHONY: run_in_memory
+run_in_memory: |
+	docker compose -f docker-compose-in-memory.yml up -d
 
 .PHONY: stop_postgres
 stop_postgres: |
 	docker compose -f docker-compose-postgres.yml down
 
-.PHONY: stop_redis
-stop_redis: |
-	docker compose -f docker-compose-redis.yml down
+.PHONY: stop_in_memory
+stop_in_memory: |
+	docker compose -f docker-compose-in-memory.yml down
 
 .PHONY: generate_proto_rpc
 generate_proto_rpc: |

@@ -4,15 +4,14 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	goRedis "github.com/redis/go-redis/v9"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"gopkg.in/yaml.v3"
 	"os"
 	"project/configs"
 	"project/internal/links/delivery/grpc/server"
+	repositoryInMemory "project/internal/links/repository/in_memory"
 	repositoryPostgres "project/internal/links/repository/postgres"
-	repositoryRedis "project/internal/links/repository/redis"
 	"project/internal/links/usecase"
 )
 
@@ -27,18 +26,18 @@ func init() {
 
 var (
 	postgres = "postgres"
-	redis    = "redis"
+	inMemory = "in-memory"
 )
 
 func main() {
 	args := os.Args[1:]
 	if len(args) != 1 {
-		log.Fatal(`В качестве хранилище укажите "postgres" или "redis"`)
+		log.Fatal(`В качестве хранилище укажите "postgres" или "in-memory"`)
 	}
 
 	storage := args[0]
-	if storage != postgres && storage != redis {
-		log.Fatal(`В качестве хранилище укажите "postgres" или "redis"`)
+	if storage != postgres && storage != inMemory {
+		log.Fatal(`В качестве хранилище укажите "postgres" или "in-memory"`)
 	}
 
 	log.SetFormatter(&log.TextFormatter{
@@ -89,17 +88,7 @@ func main() {
 			log.Fatal(err)
 		}
 	} else {
-		db := goRedis.NewClient(&goRedis.Options{
-			Addr: config.Redis.Addr,
-		})
-		defer func() {
-			err = db.Close()
-			if err != nil {
-				log.Error(err)
-			}
-		}()
-
-		linksRepository := repositoryRedis.NewLinksRepository(db)
+		linksRepository := repositoryInMemory.NewLinksRepository()
 
 		linksUsecase := usecase.NewLinksUsecase(linksRepository)
 
